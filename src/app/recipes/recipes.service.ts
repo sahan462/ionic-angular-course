@@ -28,9 +28,15 @@ export class RecipesService {
   }
 
   getRecipe(recipeId: String) {
-    return {...this.recipes.find(receipe => {
-      return receipe.id === recipeId;
+    return {...this.recipes.find(recipe => {
+      return recipe.id === recipeId;
     })}; 
+  }
+
+  deleteRecipe(recipeId: String) {
+    this.recipes = this.recipes.filter(recipe => {
+      return recipe.id !== recipeId;
+    });
   }
 
 }

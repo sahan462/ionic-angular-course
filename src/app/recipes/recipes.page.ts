@@ -15,4 +15,8 @@ export class RecipesPage implements OnInit {
     this.recipes = this.recipeService.getAllRecipes();
   }
 
+  ionViewWillEnter() {
+    this.recipes = this.recipeService.getAllRecipes();
+  }
+
 }

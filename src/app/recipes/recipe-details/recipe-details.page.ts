@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipe.model';
 
@@ -11,7 +11,11 @@ import { Recipe } from '../recipe.model';
 export class RecipeDetailsPage implements OnInit {
   loadedRecipe?: Recipe;
 
-  constructor(private activatedRoute: ActivatedRoute, private recipeService: RecipesService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private recipeService: RecipesService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap => {
@@ -28,5 +32,16 @@ export class RecipeDetailsPage implements OnInit {
       }
     })
   }
+
+  onDeleteRecipe() {
+    if (this.loadedRecipe?.id) {
+      this.recipeService.deleteRecipe(this.loadedRecipe.id);
+      this.router.navigate(['/recipes']);
+    } else {
+      // Handle the case where loadedRecipe is not defined
+      console.log('Recipe not loaded or ID is missing.');
+    }
+  }
+
 
 }
